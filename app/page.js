@@ -1,5 +1,5 @@
-
-
+import React from 'react'
+import Link from 'next/link'
 const Login = () => {
   return (
     <div className="w-full min-h-screen flex justify-center items-center bg-white flex-col">
@@ -9,7 +9,7 @@ const Login = () => {
 
       
       
-      <div className="absolute inset-1 bg-gray-800 rounded-lg z-10 p-5 relative w-[380px] h-[380px]">
+      <div className="absolute inset-1 bg-gray-800 rounded-lg z-10 p-5 relative w-[380px] h-[320px]">
       
         <form>
           <h2 className="text-2xl font-semibold text-green-500 text-center mb-6">Login</h2>
@@ -48,7 +48,7 @@ const Login = () => {
 
         <p className="mt-4 text-gray-600">
           Don't have an account?{' '}     
-              <a href='/register' className="text-green-500">Register</a>
+              <Link href='/register' className="text-green-500">Register</Link>
         </p>
       </div>
     
