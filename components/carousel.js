@@ -7,11 +7,14 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const Carousel = ({images}) => {
     const settings = {
+        autoplay: true,
+        autoplaySpeed: 2500,
         dots: true,
         infinite: true,
-        speed: 500,
+        speed: 900,
         slidesToShow: 1,
         slidesToScroll: 1,
+
       };
       return (
         <div className='w-10/12'>

@@ -1,10 +1,12 @@
+'use client'
 import React from 'react';
 
 import AppBar from "../../components/appbar"
 import Carousel from "../../components/carousel"
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
+
+
 import Link from 'next/link';
+import FloatingAB from "../../components/floatingab"
 
 const HomePage = () => {
     const carouselImages = [
@@ -26,12 +28,7 @@ const HomePage = () => {
         </div>
         </Link>
       </center>
-      <Link href="orderPage">
-      <Fab variant="extended" size="small" color="secondary" aria-label="add" className='absolute bottom-10 right-10'>
-      <AddIcon />Order
-      
-  </Fab>
-  </Link>
+      <FloatingAB />
         </div>
     )
 }
