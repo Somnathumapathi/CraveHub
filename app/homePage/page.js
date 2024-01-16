@@ -22,7 +22,7 @@ const HomePage = () => {
         {/* <br/> */}
         <Link href='myOrdersPage'>
         <div className='w-auto hover: cursor-pointer hover:scale-110 text-green-500'>
-        <a>My orders</a>
+        My orders
         </div>
         </Link>
       </center>
