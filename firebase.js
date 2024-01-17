@@ -1,4 +1,4 @@
-'use client';
+
 
 
 import { initializeApp } from "firebase/app";
@@ -7,17 +7,16 @@ import { getFirestore } from 'firebase/firestore';
 
 
 const firebaseConfig = {
-  apiKey: process.env.APIKEY,
-  authDomain: process.env.AUTHDOMAIN,
-  projectId: process.env.PROJECTID,
-  storageBucket: process.env.STORAGEBUCKET,
-  messagingSenderId: process.env.MESSAGINGSENDERID,
-  appId: process.env.APPID,
-
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGESENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID
 };
 
 const firebase = initializeApp(firebaseConfig);
-const auth = getAuth(firebase)
+const auth = getAuth(firebase);
 const firestore = getFirestore(firebase);
 
 export { auth, firestore };
