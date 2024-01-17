@@ -1,6 +1,22 @@
-import React from 'react'
+'use client'
 import Link from 'next/link'
+import {auth} from '@/firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react';
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log('User signed in successfully!');
+      window.location.href = '/homePage';
+    } catch (error) {
+      console.error('Error signing in:', error.message);
+    }
+  };
   return (
     <div className="w-full min-h-screen flex justify-center items-center bg-white flex-col">
       <h1 className="text-5xl font-bold text-green-500 mb-9 display-block">CRAVE HUB</h1>
@@ -11,13 +27,15 @@ const Login = () => {
       
       <div className="absolute inset-1 bg-gray-800 rounded-lg z-10 p-5 relative w-[380px] h-[320px]">
       
-        <form>
+        <form onSubmit={handleLogin}>
           <h2 className="text-2xl font-semibold text-green-500 text-center mb-6">Login</h2>
           <div className="relative flex flex-col mb-6">
             <input
               type="email"
               id="email"
               autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               
               className="relative z-10 border-0 border-b-2 border-green-500 h-10 bg-transparent text-gray-100 outline-none px-2 peer"
              
@@ -30,7 +48,8 @@ const Login = () => {
             <input
               type="password"
               id="password"
-             
+             value={password}
+             onChange={(e) => setPassword(e.target.value)}
               className="relative z-10 border-0 border-b-2 border-green-500 h-10 bg-transparent text-gray-100 outline-none px-2 peer"
               
             />
