@@ -4,14 +4,16 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Link from 'next/link';
 
-const FloatingAB = () => {
+const FloatingAB = ({text, navPage}) => {
     return (
-        <Link href="orderPage">
+        
       <Fab variant="extended" size="small" color="secondary" aria-label="add" className='absolute bottom-10 right-10'>
-      <AddIcon />Order
+        <Link href={navPage}>
+      <AddIcon />{text}
+      </Link>
       
   </Fab>
-  </Link>
+  
     )
 }
 export default FloatingAB

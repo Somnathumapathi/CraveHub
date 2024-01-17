@@ -28,7 +28,9 @@ const HomePage = () => {
         </div>
         </Link>
       </center>
-      <FloatingAB />
+      
+      <FloatingAB text={"order"} navPage={"orderPage"}/>
+      
         </div>
     )
 }
