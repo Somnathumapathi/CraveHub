@@ -1,22 +1,39 @@
 'use client'
+
 import Link from 'next/link'
 import {auth} from '@/firebase'
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import React, { useState } from 'react';
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import React, { useState, useEffect } from 'react';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+
+    
+    return () => unsub();
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log('User signed in successfully!');
-      window.location.href = '/homePage';
+      console.log(auth.currentUser.uid)
+      
     } catch (error) {
       console.error('Error signing in:', error.message);
     }
   };
+  useEffect(() => {
+    if (currentUser!=null) {
+      window.location.href = 'homePage';
+    }
+  }, [currentUser]);
   return (
     <div className="w-full min-h-screen flex justify-center items-center bg-white flex-col">
       <h1 className="text-5xl font-bold text-green-500 mb-9 display-block">CRAVE HUB</h1>
@@ -56,14 +73,14 @@ const Login = () => {
             <i className="bg-green-500 rounded w-full bottom-0 left-0 absolute h-1 -z-10 transition-transform duration-300 origin-bottom transform peer-focus:h-1 peer-placeholder-shown:h-[0.5px]"></i>
             <label className="peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-8 scale-75 top-3 left-0 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-500 text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-gray-500 peer-focus:scale-75 peer-focus:-translate-y-8">Enter Password</label>
           </div>
-<Link href="homePage">
+
           <button
             type="submit"
             className="py-3 text-gray-100 bg-green-700 w-full rounded hover:bg-green-500 hover:scale-105 duration-300"
             
           >
             Login
-          </button></Link>
+          </button>
         </form>
 
         <p className="mt-4 text-gray-600">

@@ -1,28 +1,42 @@
   "use client";
 
-  import React, { useState } from 'react';
+  import React, { useState, useEffect } from 'react';
   import Link from 'next/link'
   import { auth } from '@/firebase';
-  import { createUserWithEmailAndPassword } from "firebase/auth";
+  import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
   
 
   const Register = () => {
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [currentUser, setCurrentUser] = useState(null);
 
+    useEffect(() => {
+      const unsub = onAuthStateChanged(auth, (user) => {
+        setCurrentUser(user);
+      });
+  
+      
+      return () => unsub();
+    }, []);
     const handleSignUp = async (e) => {
       e.preventDefault();
       try {
 
         await createUserWithEmailAndPassword(auth, email, password);
         console.log('User signed up successfully!');
-        window.location.href = '/homePage';
+        
 
       } catch (error) {
         console.error('Error signing up:', error.message);
       }
     };
+    useEffect(() => {
+      if (currentUser) {
+        window.location.href = 'homePage';
+      }
+    }, [currentUser]);
 
       return (
         <div className="w-full min-h-screen flex justify-center items-center bg-white flex-col">
