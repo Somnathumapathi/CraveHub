@@ -14,7 +14,9 @@
         const [itemCalorie, setItemCalorie] = useState('');
         const calculateCalories = () => {                
             const calories = (itemCarb * 4) + (itemProtein * 4) + (itemFat * 8);
-            setItemCalorie(calories);
+            const caloriesAsString = calories.toString();
+            setItemCalorie(caloriesAsString);
+            
           };
         
         const addItem = async (e) => {
