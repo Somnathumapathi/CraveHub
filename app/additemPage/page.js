@@ -67,6 +67,7 @@
         <br />
         <label>Category:</label>
         <select className='text-black' value={itemCategory} onChange={(e) => setItemCategory(e.target.value)}>
+            <option >Select category</option>
             <option value="veg">Veg</option>
             <option value="non-veg">Non-Veg</option>
             <option value="egg">Egg</option>
@@ -96,4 +97,4 @@
         
     );
     }
-    export default AddItemPage
+    export default AddItemPage;
