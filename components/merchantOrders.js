@@ -5,7 +5,7 @@ import { collection, getDocs } from "firebase/firestore"
 
 
 
-const MerchantOrdersPage = () => {
+const MerchantOrders = () => {
     const [orders, setOrders] = useState([])
 useEffect(() => {
     const fetchOrders = async () => {
@@ -25,7 +25,7 @@ try{
 }, [])
 
     return (
-        <div>
+        <div className="pb-3">
             <h1>Orders: </h1>
             {orders.map((order) => (
                 <div  key={order.id} className="pt-2">
@@ -42,4 +42,4 @@ try{
         </div>
     )
 }
-export default MerchantOrdersPage;
+export default MerchantOrders;
