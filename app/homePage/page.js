@@ -57,7 +57,7 @@ const HomePage = () => {
         </div>
         
         </Link>
-        <button onClick={acccheck}>acccheck</button>
+        {/* <button onClick={acccheck}>acccheck</button> */}
         <button
               onClick={handleLogout}
               className=""
