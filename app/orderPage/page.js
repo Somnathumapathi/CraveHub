@@ -96,7 +96,7 @@ const OrderPage = () => {
  try{
   if(selectedItems!=[]) {
     if(name!='' && phno != 0 && address!='') {
-      const itemNames = selectedItems.map(item=>item.name)
+      const itemNames = selectedItems.map(item=>(item.name))
       const newOrder = new Order(currentUser.uid, name, itemNames, totalPrice, phno, address);
       const docRef = await addDoc(collection(db, "orders"), {
         cusId: newOrder.cusId,
