@@ -6,7 +6,7 @@ import AppBar from "../../components/appbar";
 import { db } from '@/firebase';
 import { collection, getDocs, addDoc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
-
+import Image from 'next/image'
 import { auth } from '@/firebase';
 import Order from '../../models/order'
 
@@ -23,7 +23,13 @@ const OrderPage = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [name, setName] = useState('');
   // const [itemName, setItemName] = useState([])
+  const [bowlItems, setBowlItems] = useState([])
 
+ const bowlItemImages = {
+  veg: '/images/vegetables.png',
+  'non-veg': '/images/meat.png',
+  egg: '/images/egg.png'
+ }
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
@@ -53,6 +59,7 @@ const OrderPage = () => {
 
   const handleAddItem = (item) => {
     const isItemInList = selectedItems.some((selectedItem) => selectedItem.id === item.id);
+    const isCategoryInBowl = bowlItems.some((bowlItem) => bowlItem.category === item.category);
     if (!isItemInList) {
     const price = parseFloat(item.price);
     const carb = parseFloat(item.carb);
@@ -64,6 +71,7 @@ const OrderPage = () => {
     
     setSelectedItems((prevItems) => [...prevItems, item]);
     
+  
 
     
     setTotalPrice((prevTotal) => (prevTotal + price));
@@ -71,10 +79,16 @@ const OrderPage = () => {
     setTotalCarb((prevTotal) => (prevTotal+carb));
     setTotalProtein((prevTotal) => (prevTotal+protein));
     setTotalfat((prevTotal) => (prevTotal+fat));
-    } else {
-        alert((item.name)+" already in bowl");
+    // const bowlItem = bowlItemImages[item.category];
+    // setBowlItems((prevItem) => [...prevItem, bowlItem]);
+    if (!isCategoryInBowl) {
+      const bowlItem = bowlItemImages[item.category];
+      setBowlItems((prevItems) => [...prevItems, { category: item.category, image: bowlItem }]);
+
     }
-  };
+    } else {
+      alert((item.name)+" already in bowl");
+  };}
 
   const handleRemoveItem = (item) => {
     const price = parseFloat(item.price);
@@ -84,11 +98,16 @@ const OrderPage = () => {
     const fat = parseFloat(item.fat);
 
     setSelectedItems((prevItems) => prevItems.filter((selectedItem) => selectedItem.id !== item.id));
+    
     setTotalPrice((prevTotal) => (prevTotal - price));
     setTotalCalories((prevTotal) => (prevTotal-calories));
     setTotalCarb((prevTotal) => (prevTotal-carb));
     setTotalProtein((prevTotal) => (prevTotal-protein));
     setTotalfat((prevTotal) => (prevTotal-fat));
+    setBowlItems((prevItems) => 
+ prevItems.filter((bowlItem) => bowlItem.category !== item.category)
+      
+    );
   };
 
   const placeOrder = async (e) => {
@@ -139,27 +158,40 @@ console.log("Error occured: ", e)
       <center>
         <h1 className='text-3xl text-green-500'>My bowl</h1>
         <br />
-        
-        <img className="w-96" src="https://img.taste.com.au/gpe52rFs/taste/2017/09/easy-beef-and-quinoa-salad-bowl-130828-2.jpg" alt="Salad bowl"></img>
-        <br />
-        <h2>My salad items:</h2>
-        {selectedItems.map((item) => (
-          <div key={item.id}>
-            <p>{item.name}</p>
-            <button onClick={() => handleRemoveItem(item)}>Remove</button>
-          </div>
-        ))}
-        <br />
-        <div className="bg-neutral-600 w-[200px] h-[150px] rounded-lg hover:bg-green-800 hover:scale-105 duration-300">
-          <h2>Nutritional Info:</h2><br/>   
-          <p>Energy(kcal): {totalCalories}</p>
-          <p>Carbohydrates: {totalCarb}</p>
-          <p>Protein: {totalProtein}</p>
-          <p>Fat: {totalfat}</p>
-
+        <div className="flex justify-center items-center">
+        <div className="flex-grow">
+        <div className='relative'>
+        <Image className="w-96" src="/images/bowl.png" alt="Salad bowl" width={300}
+      height={300}></Image>
+      <div className='absolute inset-0 flex items-center justify-center'>
+      {bowlItems.map((item, i) => ( 
+        <Image key={i} src={item.image} width={125}
+        height={125} alt={i}></Image>
+      ))}
+      </div>
+      </div>
+        </div>
         </div>
         <br />
-        <p>Total Price: &#8377;{totalPrice}</p>
+          <h2>My salad items:</h2>
+          {selectedItems.map((item) => (
+            <div key={item.id}>
+              <p>{item.name}</p>
+              <button onClick={() => handleRemoveItem(item)}>Remove</button>
+            </div>
+          ))}
+          <br />
+          <div className="bg-neutral-600 w-[200px] h-[150px] rounded-lg hover:bg-green-800 hover:scale-105 duration-300">
+            <h2>Nutritional Info:</h2><br/>   
+            <p>Energy(kcal): {totalCalories}</p>
+            <p>Carbohydrates: {totalCarb}</p>
+            <p>Protein: {totalProtein}</p>
+            <p>Fat: {totalfat}</p>
+
+          </div>
+          <br />
+          <p>Total Price: &#8377;{totalPrice}</p>
+        
         <br />
         <h2>Add Items</h2>
         
@@ -187,4 +219,4 @@ console.log("Error occured: ", e)
   );
 };
 
-export default OrderPage;
+export default OrderPage
