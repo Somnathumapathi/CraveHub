@@ -87,7 +87,7 @@ const Login = () => {
           Don't have an account?{' '}     
               <Link href='/register' className="text-green-500">Register</Link>
         </p>
-        <Link href="merchant" className='text-sm text-green-700'>
+        <Link href="merchantLogin" className='text-sm text-green-700'>
       Are you merchant?</Link>
       </div>
       
