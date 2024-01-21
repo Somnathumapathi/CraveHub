@@ -9,7 +9,7 @@ const FloatingAB = ({text, navPage}) => {
 
     return (
         
-      <Fab variant="extended" size="small" color="secondary" aria-label="add" className='absolute bottom-10 right-10'>
+      <Fab variant="extended" size="small" aria-label="add" className='fixed bottom-10 right-10 text-white hover:bg-green-700'>
         <Link href={navPage}>
       <AddIcon />{text}
       </Link>

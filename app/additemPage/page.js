@@ -3,7 +3,7 @@ import { useState } from 'react';
 import {db} from '@/firebase'
 import { collection, addDoc, onSnapshot, setDoc, doc, deleteDoc } from 'firebase/firestore'
 import Item from '../../models/item';
-import AppBar from '@/components/appbar';
+// import AppBar from '@/components/appbar';
 
 const AddItemPage = () => {
     const [itemName, setItemName] = useState('');
@@ -62,7 +62,7 @@ const AddItemPage = () => {
     }
     return (
         <div>
-            <AppBar/>
+            {/* <AppBar/> */}
             <center className='flex flex-col items-center'>
             <div className='box-content h-120 w-1/3 m-12 bg-slate-300/75 rounded-lg text-left'>
                 <h1 className='text-3xl p-6 text-center font-bold text-green-600'>New Menu Item</h1>

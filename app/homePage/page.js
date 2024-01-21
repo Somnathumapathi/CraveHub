@@ -24,19 +24,19 @@ const HomePage = () => {
     return () => unsub();
   }, []);
   
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      console.log('User signed out successfully!');
-      window.location.href = '/';
-    } catch (error) {
-      console.error('Error signing out:', error.message);
-    }
-  };
-  const acccheck = ()=>{
-    const userid = currentUser.uid
-    console.log(userid)
-  }
+  // const handleLogout = async () => {
+  //   try {
+  //     await signOut(auth);
+  //     console.log('User signed out successfully!');
+  //     window.location.href = '/';
+  //   } catch (error) {
+  //     console.error('Error signing out:', error.message);
+  //   }
+  // };
+  // const acccheck = ()=>{
+  //   const userid = currentUser.uid
+  //   console.log(userid)
+  // }
 
     const carouselImages = [
         "https://s3-ap-southeast-1.amazonaws.com/foodvista.1/7827a873-586d-419d-8b1c-8c0c0211d6fb.jpg",
@@ -56,14 +56,14 @@ const HomePage = () => {
         My orders
         </div>
         
-        </Link>
+        </Link><br/><br/><br/>
         {/* <button onClick={acccheck}>acccheck</button> */}
-        <button
+        {/* <button
               onClick={handleLogout}
               className=""
             >
               Logout
-            </button>
+            </button> */}
       </center>
       
       <FloatingAB text={"order"} navPage={"orderPage"}/>
