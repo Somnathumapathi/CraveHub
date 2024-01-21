@@ -116,15 +116,15 @@ const OrderPage = () => {
   if(selectedItems!=[]) {
     if(name!='' && phno != 0 && address!='') {
       const itemNames = selectedItems.map(item=>(item.name))
-      const newOrder = new Order(currentUser.uid, name, itemNames, totalPrice, phno, address);
+      const newOrder = new Order(currentUser.uid, name, itemNames, totalPrice, phno, address, totalCalories);
       const docRef = await addDoc(collection(db, "orders"), {
         cusId: newOrder.cusId,
         custName: newOrder.custName,
         items: newOrder.items,
         price: newOrder.price,
         phno: newOrder.phno,
-        address: newOrder.address
-      
+        address: newOrder.address,
+      calories: newOrder.calories
         
       }
       
