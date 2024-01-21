@@ -9,6 +9,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image'
 import { auth } from '@/firebase';
 import Order from '../../models/order'
+import Link  from 'next/link'
 
 const OrderPage = () => {
   const [items, setItems] = useState([]);
@@ -56,7 +57,6 @@ const OrderPage = () => {
     fetchItems();
   }, []);
 
-
   const handleAddItem = (item) => {
     const isItemInList = selectedItems.some((selectedItem) => selectedItem.id === item.id);
     const isCategoryInBowl = bowlItems.some((bowlItem) => bowlItem.category === item.category);
@@ -70,10 +70,6 @@ const OrderPage = () => {
     
     
     setSelectedItems((prevItems) => [...prevItems, item]);
-    
-  
-
-    
     setTotalPrice((prevTotal) => (prevTotal + price));
     setTotalCalories((prevTotal) => (prevTotal+calories));
     setTotalCarb((prevTotal) => (prevTotal+carb));
@@ -153,70 +149,90 @@ console.log("Error occured: ", e)
   }
   
   return (
-    <div>
-      <AppBar pageName="Order" />
+    <div className='bg-gray-800'>
+      <AppBar />
       <center>
-        <h1 className='text-3xl text-green-500'>My bowl</h1>
-        <br />
-        <div className="flex justify-center items-center">
-        <div className="flex-grow">
-        <div className='relative'>
-        <Image className="w-96" src="/images/bowl.png" alt="Salad bowl" width={300}
-      height={300}></Image>
-      <div className='absolute inset-0 flex items-center justify-center'>
-      {bowlItems.map((item, i) => ( 
-        <Image key={i} src={item.image} width={125}
-        height={125} alt={i}></Image>
-      ))}
-      </div>
-      </div>
-        </div>
-        </div>
-        <br />
-          <h2>My salad items:</h2>
-          {selectedItems.map((item) => (
-            <div key={item.id}>
-              <p>{item.name}</p>
-              <button onClick={() => handleRemoveItem(item)}>Remove</button>
+        <p className='m-4 text-4xl  p-4 font-bold text-green-600'>Build Your Bowl!</p>
+        <div className='flex flex-col'>
+          <br />
+          <div className='flex flex-grow flex-row mt-10 order-first items-center justify-center mb-4'>
+            <div className='relative'>
+              <Image className='w-96' src='/images/bowl.png' alt='Salad Bowl' width={300} height={300}></Image>
+              <div className='absolute inset-0 flex items-center justify-center'>
+                {bowlItems.map((item, i) => (
+                  <Image key={i} src={item.image} width={125} height={125} alt={i}></Image>
+                ))}
+              </div>
             </div>
-          ))}
-          <br />
-          <div className="bg-neutral-600 w-[200px] h-[150px] rounded-lg hover:bg-green-800 hover:scale-105 duration-300">
-            <h2>Nutritional Info:</h2><br/>   
-            <p>Energy(kcal): {totalCalories}</p>
-            <p>Carbohydrates: {totalCarb}</p>
-            <p>Protein: {totalProtein}</p>
-            <p>Fat: {totalfat}</p>
-
+            <div className='inline-block m-10 ml-40 bg-gray-300 w-[280px] h-[240px] rounded-lg hover:scale-110 duration-300 text-xl p-5 leading-relaxed'>
+              <p className='font-bold text-2xl'>Nutritional Info:</p>
+              <br />
+              <div className='text-left'>
+                <p>Energy(kcal): {totalCalories}</p>
+                <p>Carbohydrates: {totalCarb}</p>
+                <p>Protein: {totalProtein}</p>
+                <p>Fat: {totalfat}</p>
+              </div>
+            </div>
           </div>
           <br />
-          <p>Total Price: &#8377;{totalPrice}</p>
-        
-        <br />
-        <h2>Add Items</h2>
-        
-        {items.map((item) => (
-          <div key={item.id}>
-            <p>{item.name} - &#8377;{item.price}</p>
-            <button onClick={() => handleAddItem(item)}>+ Add to Bowl</button>
+          <div>
+            <p className='text-4xl mt-4 mb-4 p-3 font-bold text-green-600'>Add To Bowl:</p>
+            <div className='flex flex-row order-first'>
+              <div>
+                {items.map((item) => (
+                  <div className='flex flex-col leading-relaxed ml-[200px] m-2 text-white' key={item.id}>
+                    <div className='flex flex-row mt-4 mr-40 items-center'>
+                      <p className='w-[200px] h-[20px]'>{item.name} - &#8377; {item.price}</p>
+                      {selectedItems.find((selectedItem) => selectedItem.id === item.id) ? (
+                                    <button onClick={() => handleRemoveItem(item)} className="ml-4 w-[90px] self-end border-red-600 border bg-red-600 hover:bg-red-700 p-2 hover:scale-105 duration-200 text-white rounded-full">
+                                      Remove
+                                    </button>
+                                  ) : (
+                                    <button onClick={() => handleAddItem(item)} className="ml-4 w-[90px] self-end border-green-600 border bg-green-600 hover:bg-green-700 p-2 hover:scale-105 duration-200 text-white rounded-full">
+                                      Add
+                                    </button>
+                                  )} 
+                    </div>
+                  </div>
+                ))}
+                <br />
+              </div>
+              <div className='flex flex-row order-last'>
+                <div className='flex flex-col ml-[300px] mr-[100px] leading-loose m-3 items-center'>
+                  <div>
+                    <p className='text-3xl font-bold text-green-600 mb-8'>Enter your details:</p>
+                    <div className='m-3 p-2'>
+                      <label className='mr-10 text-white'>Enter Name:</label>
+                      <input type='text' className='text-black border-2 border-black rounded-md p-2' value={name} onChange={(e) => setName(e.target.value)} placeholder='Name' />
+                    </div>
+                    <div className='m-3 p-2'>
+                      <label className='mr-3 text-white'>Enter Phone no:</label>
+                      <input type='number' className='text-black border-2 border-black rounded-md p-2' value={phno} onChange={(e) => setPhno(e.target.value)} placeholder='Phone number' />
+                    </div>
+                    <div className='m-3 p-2'>
+                      <label className='mr-5 text-white'>Enter Address:</label>
+                      <input type='text' className='text-black border-2 border-black rounded-md p-2' value={address} onChange={(e) => setAddress(e.target.value)} placeholder='Address' />
+                    </div>
+                    <div className='mt-5'>
+                      <p className='text-2xl text-white font-bold'>Total Price: &#8377;{totalPrice}</p>
+                    </div>
+                  </div>
+                  <br />
+                  <button
+                    onClick={placeOrder}
+                    className='mb-5 h-[50px] w-[200px] focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-xl px-5 py-2.5 me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 hover:scale-105 duration-300'
+                  >
+                    Place Order
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-        ))}
-        <br/>
-        <h2>Enter your details:</h2>
-        <br/>
-        <label>Enter Name:     </label>
-       <input type='text' className='text-black' value={name} onChange={(e) => setName(e.target.value)} placeholder='Name' />
-       <br/><br/>
-        <label>Enter Phone no.: </label>
-        <input type='number' className='text-black' value={phno} onChange={(e) => setPhno(e.target.value)} placeholder='Phone number'/>
-       <br/><br/>
-       <label>Enter Address:     </label>
-       <input type='text' className='text-black' value={address} onChange={(e) => setAddress(e.target.value)} placeholder='Address'/>
-       <br/><br/>
-       <button onClick={placeOrder} className='focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'>Place Order</button>
+        </div>
       </center>
     </div>
   );
 };
 
-export default OrderPage
+export default OrderPage;
