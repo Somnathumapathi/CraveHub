@@ -20,4 +20,4 @@ const firebase = initializeApp(firebaseConfig);
 const auth = getAuth(firebase);
 const db = getFirestore(firebase);
 
-export { auth, db };
+export { auth, db };  
