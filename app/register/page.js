@@ -46,7 +46,7 @@
     
           
           
-          <div className="absolute inset-1 bg-gray-800 rounded-lg z-10 p-5 relative w-[380px] h-[380px]">
+          <div className="absolute inset-1 bg-gray-800 rounded-lg z-10 p-5 relative w-[380px] h-[320px]">
           
             <form onSubmit={handleSignUp}>
               <h2 className="text-2xl font-semibold text-green-500 text-center mb-6">Register</h2>
