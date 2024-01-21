@@ -21,6 +21,7 @@
       return () => unsub();
     }, []);
     const handleSignUp = async (e) => {
+     if(password.length>=6) {
       e.preventDefault();
       try {
 
@@ -31,6 +32,9 @@
       } catch (error) {
         console.error('Error signing up:', error.message);
       }
+     } else {
+      alert('Password should be atleast 6 characters')
+     }
     };
     useEffect(() => {
       if (currentUser) {
@@ -86,7 +90,7 @@
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <i className="bg-green-500 rounded w-full bottom-0 left-0 absolute h-1 -z-10 transition-transform duration-300 origin-bottom transform peer-focus:h-1 peer-placeholder-shown:h-[0.5px]"></i>
-                <label className="peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-8 scale-75 top-3 left-0 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-500 text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-gray-500 peer-focus:scale-75 peer-focus:-translate-y-8">Enter Password</label>
+                <label className="peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-8 scale-75 top-3 left-0 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-green-500 text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-gray-500 peer-focus:scale-75 peer-focus:-translate-y-8">Enter New Password</label>
               </div>
     
               <button

@@ -3,7 +3,7 @@ import AppBar from "../../components/appbar";
 
 import { useState, useEffect } from "react";
 import { db, auth } from '@/firebase'
-import { collection, getDocs, where } from "firebase/firestore"
+import { collection, getDocs, query, where } from "firebase/firestore"
 import { onAuthStateChanged } from 'firebase/auth';
 
 const MyOrdersPage = () => {
@@ -24,7 +24,8 @@ const MyOrdersPage = () => {
         if (currentUser) {
             const fetchMyOrders = async () => {
                 try {
-                    const snap = await getDocs(collection(db, 'orders'), where('cusId', '==', currentUser.uid));
+                    const q = query(collection(db, 'orders'), where('cusId', '==', currentUser.uid));
+                    const snap = await getDocs(q);
                     const ordersData = snap.docs.map((doc) => ({
                         id: doc.id,
                         ...doc.data()
@@ -44,8 +45,11 @@ const MyOrdersPage = () => {
         <div>
             <AppBar pageName="My Orders" />
             <div>{myOrders.map((order) => (
-                <div key={order.id}>
-                    <p className="">{order.custName}</p>
+                <div key={order.id} className="pb-5">
+                    <p className="">{order.custName}-{(order.cusId)}</p>
+                    <p>Price-{order.price}  Calories-{order.calories}</p>
+                    <p>Salad items-{order.items}</p>
+                    
                 </div>
             ))}</div>
         </div>
