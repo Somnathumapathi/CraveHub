@@ -92,19 +92,28 @@ const OrderPage = () => {
     const calories = parseFloat(item.calorie);
     const protein = parseFloat(item.protein);
     const fat = parseFloat(item.fat);
-
+  
     setSelectedItems((prevItems) => prevItems.filter((selectedItem) => selectedItem.id !== item.id));
-    
-    setTotalPrice((prevTotal) => (prevTotal - price));
-    setTotalCalories((prevTotal) => (prevTotal-calories));
-    setTotalCarb((prevTotal) => (prevTotal-carb));
-    setTotalProtein((prevTotal) => (prevTotal-protein));
-    setTotalfat((prevTotal) => (prevTotal-fat));
-    setBowlItems((prevItems) => 
- prevItems.filter((bowlItem) => bowlItem.category !== item.category)
-      
+  
+    setTotalPrice((prevTotal) => prevTotal - price);
+    setTotalCalories((prevTotal) => prevTotal - calories);
+    setTotalCarb((prevTotal) => prevTotal - carb);
+    setTotalProtein((prevTotal) => prevTotal - protein);
+    setTotalfat((prevTotal) => prevTotal - fat);
+
+    const isCategoryStillInBowl = selectedItems.some(
+      (selectedItem) => selectedItem.category === item.category && selectedItem.id !== item.id
     );
+  
+    if (!isCategoryStillInBowl) {
+      setBowlItems((prevItems) => prevItems.filter((bowlItem) => bowlItem.category !== item.category));
+    }
   };
+  
+  
+  
+  
+  
 
   const placeOrder = async (e) => {
  e.preventDefault();
@@ -164,7 +173,7 @@ console.log("Error occured: ", e)
                 ))}
               </div>
             </div>
-            <div className='inline-block m-10 ml-40 bg-gray-300 w-[280px] h-[240px] rounded-lg hover:scale-110 duration-300 text-xl p-5 leading-relaxed'>
+            <div className='inline-block m-10 ml-40 bg-gray-500 w-[280px] h-[240px] rounded-lg hover:bg-green-500/50 hover:scale-110 duration-300 text-xl p-5 leading-relaxed'>
               <p className='font-bold text-2xl'>Nutritional Info:</p>
               <br />
               <div className='text-left'>

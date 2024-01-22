@@ -14,7 +14,8 @@ const Carousel = ({images}) => {
         speed: 900,
         slidesToShow: 1,
         slidesToScroll: 1,
-
+        width: 800,
+        height:400
       };
       return (
         <div className='w-10/12'>

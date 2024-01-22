@@ -64,7 +64,7 @@ const AddItemPage = () => {
         <div>
             {/* <AppBar/> */}
             <center className='flex flex-col items-center'>
-            <div className='box-content h-120 w-1/3 m-12 bg-slate-300/75 rounded-lg text-left'>
+            <div className='box-content h-120 w-1/3 m-12 rounded-lg text-left bg-gray-900'>
                 <h1 className='text-3xl p-6 text-center font-bold text-green-600'>New Menu Item</h1>
              <table>
                 <tbody>
@@ -140,7 +140,7 @@ const AddItemPage = () => {
             </tbody>
             </table> 
             <div className='flex flex-col items-center'>
-            <button className="bg-green-500 hover:bg-green-600 p-3 mt-2 mb-4 text-white rounded-full" onClick={addItem}>Add Item</button>
+            <button className="bg-green-600 hover:bg-green-700 p-3 mt-2 mb-4 text-white rounded-full" onClick={addItem}>Add Item</button>
             </div>
             </div>         
             </center>
