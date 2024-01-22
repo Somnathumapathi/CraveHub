@@ -47,10 +47,10 @@ const MyOrdersPage = () => {
     };
   
     return (
-      <div classname="pl-4 ml-6 mr-6">
-      <div className="pl-6 bg-green-900 text-white">
+      <div classname="">
+      <div className="bg-green-900 text-white">
         <AppBar pageName="My Orders" />
-        <div className="container mx-auto mt-8 pb-5">
+        <div className="container mx-auto mt-5 pb-5 p-5">
           {myOrders.map((order) => (
             <div
               key={order.id}
