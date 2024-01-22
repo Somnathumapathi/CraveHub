@@ -46,9 +46,9 @@ import FloatingAB from "../../components/floatingab"
                 <p className='text-5xl mt-5 text-green-600 font-bold'>Welcome To CraveHub!</p>
                 <div className='m-11'>
                   <Carousel images={carouselImages} />
-                  <FloatingAB text={"order"} navPage={"orderPage"}/>
+                  
                 </div>
-                <div className='text-white text-left ml-40 mr-40 mt-20 mb-20'>
+                <div className='text-white text-left ml-40 mr-40 mt-20'>
                     <p className='text-4xl font-bold text-green-600 m-4'>About CraveHub</p>
                     <p className='text-xl m-4 mb-8 leading-relaxed border-b-2 border-white/50 pb-8'>
                       Welcome to CraveHub, where we believe in the power of vibrant, nourishing salads that are as
@@ -76,13 +76,14 @@ import FloatingAB from "../../components/floatingab"
                       footprint. Every bite is a celebration of flavor, freshness, and the goodness that comes from the earth
                     </p>
                     <p className='text-4xl font-bold text-green-600 m-4'>Our Commitment to You</p>
-                    <p className='text-xl m-4 mb-8 leading-relaxed p-4'>
+                    <p className='text-xl m-4 mb-8 leading-relaxed p-4 pb-40'>
                       At CraveHub, we are committed to providing a dining experience that goes beyond the plate.
                       Join us at CraveHub and embark on a journey of flavor, freshness, and well-being. 
                       Your health is our priority, and we can't wait to be a part of your deliciously healthy lifestyle.
                     </p>
                 </div>
               </center>
+              <FloatingAB text={"order"} navPage={"orderPage"}/>
         </div>
     </div> 
     
